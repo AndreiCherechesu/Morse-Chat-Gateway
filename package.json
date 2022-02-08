@@ -1,0 +1,21 @@
+{
+  "name": "Morse-Chat-Gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/AndreiCherechesu/Morse-Chat-Gateway",
+  "author": "Catalin Vajaiala <catalin.vajaiala@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.25.0",
+    "nodemon": "^2.0.15",
+    "serialport": "^9.2.8",
+    "ts-node": "^10.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.5",
+    "@types/serialport": "^8.0.2"
+  },
+  "scripts": {
+    "start": "nodemon index.ts"
+  }
+}
