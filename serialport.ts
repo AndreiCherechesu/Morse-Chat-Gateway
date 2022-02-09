@@ -29,11 +29,29 @@ serialPort.on("close", () => {
     process.exit(0);
 });
 
-export function initParser(callback: (data: any) => void) {
+async function handleData(
+    data: string,
+    callback: (data: any) => Promise<string>
+) : Promise<void> {
+
+    try {
+        const result = await callback(data);
+        serialPort.write(result, (err) => {
+            if (err) {
+                return console.log("Couldn't write to serial " + err.message);
+            }
+            console.log("Message written"); 
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export function initParser(callback: (data: any) => Promise<string>) {
     serialPort.open(() => {
         console.log("Port open");
-        parser.on('data', (data) => {
-            callback(data);
+        parser.on('data', async (data) => {
+            await handleData(data, callback);
         });
     })
 }
