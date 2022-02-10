@@ -4,6 +4,7 @@ export type SerialMessage = {
     body?: object;
 }
 
+
 export type DecodedJSON = {
     uid: string;
     message: string;

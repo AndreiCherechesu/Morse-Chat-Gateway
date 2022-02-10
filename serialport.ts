@@ -45,7 +45,7 @@ async function handleData(
             if (err) {
                 return console.log("Couldn't write to serial " + err.message);
             }
-            console.log("[DEBUG] Message written: " + numBytes + " bytes"); 
+            // console.log("[DEBUG] Message written: " + numBytes + " bytes"); 
         });
     } catch (error) {
         // console.log(error);

@@ -20,14 +20,16 @@ async function dispatch(data: string) {
             };
             case "GET": {
                 const response = await axios.get(serialMessage.url);
-                const resp2 = `${response.data.length},${response.data.map((message: DecodedJSON) => {
-                    return `${message.uid},${message.message}`;
-                }).join(' ')}`;
 
-                // console.log(resp2);
-                return resp2;
-
-                // return JSON.stringify(response.data);
+                if (serialMessage.url.endsWith("/users")) {
+                    return `${response.data.id}`
+                } else if (serialMessage.url.includes("/messages/")) {
+                    return  `${response.data.length},${response.data.map((message: DecodedJSON) => {
+                        return `${message.uid},${message.message}`;
+                    }).join(' ')}`
+                } else {
+                    return "Invalid endpoint";
+                }
             }
             default:
                 throw new Error('Method not allowed');
