@@ -36,14 +36,19 @@ async function handleData(
 
     try {
         const result = await callback(data);
-        serialPort.write(result, (err) => {
+        const buffer = Buffer.alloc(128, 0);
+        Buffer.from(result).copy(buffer);
+        // console.log(buffer);
+
+        serialPort.write(buffer, (err, numBytes) => {
+            serialPort.drain();
             if (err) {
                 return console.log("Couldn't write to serial " + err.message);
             }
-            console.log("Message written"); 
+            console.log("[DEBUG] Message written: " + numBytes + " bytes"); 
         });
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
